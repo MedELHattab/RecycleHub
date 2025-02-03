@@ -1,6 +1,19 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+import { AppComponent } from './app/app.component';
+import { authReducer } from './app/store/auth//reducers/auth.reducer';
+import { AuthEffects } from './app/store/auth/effects/auth.effects';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    // Provide NgRx Store with the auth feature reducer
+    provideStore({ auth: authReducer }),
+    
+    // Provide NgRx Effects with the authentication effects
+    provideEffects([AuthEffects]),
+    
+  ],
+});
+
