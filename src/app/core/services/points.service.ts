@@ -69,12 +69,7 @@ export class PointsService {
     );
   }
 
-  getUserTransactions(userId: string): Observable<VoucherTransaction[]> {
-    const transactions = this.getTransactions()
-      .filter(t => t.userId === userId)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    return of(transactions);
-  }
+  
 
   private getUsers(): User[] {
     return JSON.parse(localStorage.getItem(environment.localStorage.usersKey) || '[]');
