@@ -295,5 +295,14 @@ export class ProfileComponent implements OnInit {
     this.showDeleteModal = true;
   }
 
-  
+  deleteAccount(): void {
+    this.store.select(state => state.auth.user?.id)
+      .subscribe(userId => {
+        if (userId) {
+          this.store.dispatch(AuthActions.deleteAccount({ userId }));
+        }
+      })
+      .unsubscribe();
+    this.showDeleteModal = false;
+  }
 }
