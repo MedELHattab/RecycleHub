@@ -13,6 +13,14 @@ export class CollectorGuard implements CanActivate {
     private router: Router
   ) {}
 
-  
+  canActivate(): Observable<boolean | UrlTree> {
+    return this.authService.currentUser$.pipe(
+      map(user => {
+        if (user?.isCollector) {
+          return true;
+        }
+        return this.router.createUrlTree(['/dashboard']);
+      })
+    );
   }
 }
